@@ -509,9 +509,13 @@ async function loadDynamicPacks() {
     try {
         const res = await fetch(`${API}/packs`);
         const packs = await res.json();
-        const dynamicList = document.getElementById('dynamic-packs-list');
-        if(!dynamicList) return;
-        dynamicList.innerHTML = packs.map(p => `
+        
+        // Agora a gente mira direto na grade principal
+        const packsGrid = document.getElementById('packsList'); 
+        if(!packsGrid) return;
+
+        // Criamos o HTML dos packs novos
+        const dynamicHTML = packs.map(p => `
             <div class="pack-card" data-name="${p.name}">
                 <div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div>
                 <div class="pack-card-name">${p.name}</div>
@@ -519,7 +523,14 @@ async function loadDynamicPacks() {
                 <a href="${p.link}" target="_blank" class="btn-download-card">Baixar Pack</a>
             </div>
         `).join('');
-    } catch(e) { console.error("Erro ao carregar packs"); }
+
+        // O 'beforeend' diz ao navegador: 
+        // "Coloque esses packs novos no final da grade, logo após os packs que já estão lá"
+        packsGrid.insertAdjacentHTML('beforeend', dynamicHTML);
+        
+    } catch(e) { 
+        console.error("Erro ao carregar packs:", e); 
+    }
 }
 
 async function uploadPack() {
