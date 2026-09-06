@@ -276,7 +276,6 @@ footer { text-align: center; padding: 60px 0 30px; color: var(--text-dim); font-
 <div class="pack-card" data-name="PACK EXCLUSIVO DOS VIGARISTAS"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">PACK EXCLUSIVO DOS VIGARISTAS</div><div class="pack-card-source">DJ LUCXY ZN / G4M • Pack</div><a href="https://drive.google.com/file/d/1Zetpr8G0dAK3N_2atUHJ8L4JWF_RxFjK/view" target="_blank" class="btn-download-card">Baixar Pack</a></div>
 <div class="pack-card" data-name="PACK DJ RDT DA DZ7 💉"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">PACK DJ RDT DA DZ7 💉</div><div class="pack-card-source">NIK 013 • Kit Completo</div><a href="https://www.mediafire.com/file/1prhysn1jsz31pz/PACK_DJ_RDT_DA_DZ7.zip/file" target="_blank" class="btn-download-card">Baixar Pack</a></div>
 </div>
-<div id="dynamic-packs-list" style="display: contents;"></div>
 </div>
 </div>
 
@@ -507,14 +506,15 @@ function logout() {
 
 async function loadDynamicPacks() {
     try {
+        // 1. O trabalhador busca os packs no servidor
         const res = await fetch(`${API}/packs`);
         const packs = await res.json();
         
-        // Agora a gente mira direto na grade principal
+        // 2. Ele olha para a PRATELEIRA (packsList)
         const packsGrid = document.getElementById('packsList'); 
         if(!packsGrid) return;
 
-        // Criamos o HTML dos packs novos
+        // 3. Ele prepara os packs para serem colocados
         const dynamicHTML = packs.map(p => `
             <div class="pack-card" data-name="${p.name}">
                 <div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div>
@@ -523,6 +523,15 @@ async function loadDynamicPacks() {
                 <a href="${p.link}" target="_blank" class="btn-download-card">Baixar Pack</a>
             </div>
         `).join('');
+
+        // 4. Ele coloca os packs DIRETO na prateleira, um por um, no final da lista
+        packsGrid.insertAdjacentHTML('beforeend', dynamicHTML);
+        
+    } catch(e) { 
+        console.error("Erro ao carregar packs:", e); 
+    }
+}
+
 
         // O 'beforeend' diz ao navegador: 
         // "Coloque esses packs novos no final da grade, logo após os packs que já estão lá"
