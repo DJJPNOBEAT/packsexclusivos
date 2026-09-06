@@ -64,16 +64,22 @@ nav { display: flex; justify-content: space-between; align-items: center; paddin
 .comments-container::-webkit-scrollbar { display: none; }
 .comment-bubble { background: var(--card-bg); border: 1px solid var(--card-border); padding: 12px 20px; border-radius: 20px; white-space: nowrap; font-size: 14px; color: var(--text-dim); transition: var(--transition); backdrop-filter: blur(10px); }
 .comment-bubble:hover { border-color: var(--primary); color: var(--text); transform: translateY(-5px); }
+.must-have-card { background: var(--card-bg); border: 1px solid var(--primary); border-radius: 30px; padding: 30px; position: relative; backdrop-filter: blur(15px); transition: var(--transition); max-width: 600px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+.badge-imperdivel { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--accent); color: white; padding: 6px 22px; border-radius: 50px; font-size: 12px; font-weight: 800; text-transform: uppercase; }
+.thanks-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 30px; padding: 35px; text-align: center; margin-top: 40px; backdrop-filter: blur(10px); transition: background-color 0.4s ease; }
+.thanks-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin: 25px 0; }
+.thanks-tag { padding: 8px 18px; background: rgba(255,255,255,0.05); border: 1px solid var(--card-border); border-radius: 50px; font-size: 13px; color: var(--text-dim); transition: var(--transition); }
+.thanks-tag.main { background: var(--accent); color: white; font-weight: 600; border: none; }
 .btn-main { padding: 18px 36px; font-size: 16px; font-weight: 600; color: white; background: var(--accent); border: none; border-radius: 50px; transition: var(--transition); text-decoration: none; cursor: pointer; margin-top: 30px; box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3); }
 .btn-main:hover { transform: scale(1.05) translateY(-3px); }
 .community-container { width: 100%; max-width: 800px; margin: 0 auto; padding: 0 20px; text-align: center; }
 .comment-box { background: var(--card-bg); border: 1px solid var(--card-border); padding: 30px; border-radius: 30px; backdrop-filter: blur(10px); margin-top: 30px; transition: var(--transition); }
 .comment-input-area { display: flex; gap: 10px; margin-bottom: 30px; }
 .comment-input-area input { flex: 1; padding: 15px 20px; border-radius: 15px; border: 1px solid var(--card-border); background: rgba(0,0,0,0.2); color: var(--text); outline: none; transition: var(--transition); }
+.comment-input-area input:focus { border-color: var(--primary); }
 .comment-input-area button { padding: 0 25px; border-radius: 15px; background: var(--accent); color: white; border: none; cursor: pointer; font-weight: 600; transition: var(--transition); }
 .comments-list { display: flex; flex-direction: column; gap: 15px; text-align: left; max-height: 600px; overflow-y: auto; padding: 10px; }
-.user-comment { background: rgba(255,255,255,0.02); border: 1px solid var(--card-border); padding: 15px; border-radius: 15px; animation: fadeIn 0.5s ease; position: relative; overflow: hidden;}
-.user-comment::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--accent); }
+.user-comment { background: rgba(255,255,255,0.02); border: 1px solid var(--card-border); padding: 15px; border-radius: 15px; animation: fadeIn 0.5s ease; }
 .user-comment strong { color: var(--primary); font-size: 14px; }
 .user-comment p { font-size: 14px; color: var(--text-dim); margin-top: 5px; }
 .auth-warning { color: var(--text-dim); font-size: 14px; font-style: italic; padding: 20px; border: 1px dashed var(--card-border); border-radius: 15px; margin-bottom: 30px; }
@@ -84,6 +90,9 @@ nav { display: flex; justify-content: space-between; align-items: center; paddin
 @keyframes gradientShift { to { background-position: 300% center; } }
 .zika-sub { color: var(--text-dim); margin: 10px 0 10px; font-size: 15px; }
 .zika-box { border: 1px solid var(--primary); box-shadow: 0 0 40px rgba(139, 92, 246, 0.15); }
+.zika-box .comment-input-area button { box-shadow: 0 8px 18px rgba(139,92,246,0.35); }
+.user-comment { position: relative; overflow: hidden; }
+.user-comment::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--accent); }
 .packs-container { padding: 120px 8% 60px; display: flex; flex-direction: column; align-items: center; }
 .search-area { width: 100%; max-width: 800px; margin-bottom: 50px; display: flex; gap: 15px; align-items: center; }
 .search-box { flex: 1; }
@@ -130,6 +139,7 @@ footer { text-align: center; padding: 60px 0 30px; color: var(--text-dim); font-
 .request-actions { display: flex; gap: 10px; margin-top: 10px; }
 .btn-approve { flex: 1; background: var(--accent); color: white; border: none; padding: 12px; border-radius: 12px; font-weight: 600; cursor: pointer; transition: var(--transition); }
 .btn-reject { flex: 1; background: transparent; border: 1px solid var(--admin-color); color: var(--admin-color); padding: 12px; border-radius: 12px; font-weight: 600; cursor: pointer; transition: var(--transition); }
+.btn-approve:hover, .btn-reject:hover { transform: translateY(-2px); }
 .float-container { position: fixed; bottom: 30px; right: 30px; display: flex; flex-direction: column; gap: 15px; z-index: 2000; }
 .float-btn { display: flex; align-items: center; gap: 12px; padding: 12px 20px; color: white; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 14px; transition: var(--transition); box-shadow: 0 10px 20px rgba(0,0,0,0.3); cursor: pointer; border: none; }
 .float-btn:hover { transform: scale(1.1) translateX(-5px); }
@@ -213,10 +223,58 @@ footer { text-align: center; padding: 60px 0 30px; color: var(--text-dim); font-
 <button class="btn-launch" onclick="openRequestModal()">📩 Solicitar Pack</button>
 </div>
 <div class="packs-grid" id="packsList">
-<!-- Packs estáticos ficam aqui -->
+<!-- PACKS ESTÁTICOS MANTIDOS -->
 <div class="pack-card" data-name="Mini pack DJ URUS"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">Mini pack DJ URUS</div><div class="pack-card-source">JVXT • Drum Kit</div><a href="https://www.mediafire.com/file/nlty4j2k8rhfnev/Mini_pack_DJ_URUS.zip/file" target="_blank" class="btn-download-card">Baixar Pack</a></div>
 <div class="pack-card" data-name="PACK EXCLUSIVA DJ AC15"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">PACK EXCLUSIVA DJ AC15</div><div class="pack-card-source">JVXT • Funk / MTG</div><a href="https://www.mediafire.com/file/sid1val8zz8poyp/PACK+EXCLUSIVA+DJ+AC15+011.rar/file" target="_blank" class="btn-download-card">Baixar Pack</a></div>
-<!-- ... (Mantenha seus outros packs estáticos aqui) ... -->
+<div class="pack-card" data-name="PACK DJ SOUZA (LITE)"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">PACK DJ SOUZA (LITE)</div><div class="pack-card-source">JVXT • Drum Kit</div><a href="https://www.mediafire.com/file/6l98i19sq090tc4/PACK_DJ_SOUZA_011_%2528_LITE_%2529.zip/file" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="MINI PACK MENOR HZ"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">MINI PACK MENOR HZ</div><div class="pack-card-source">JVXT • Samples / Loops</div><a href="https://www.mediafire.com/file/60nee9li7nqqb1k/MINI_PACK_MENOR_HZ.zip/file" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="pack do iago"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">pack do iago</div><div class="pack-card-source">JVXT • Samples</div><a href="https://www.mediafire.com/file/2gpy9368ofhb76b/pack_do_iago.zip/file" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="PACK DJ PABLYNH V4"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">PACK DJ PABLYNH V4</div><div class="pack-card-source">Menor Kd7 • Funk</div><a href="https://www.mediafire.com/file/509thdsdm81xvu0/PACK_EXCLUSIVO_DJ_PABLYNH_V.4.zip/file" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="PACK DJ BNF ORIGINAL 1.0"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">PACK DJ BNF ORIGINAL 1.0</div><div class="pack-card-source">Anônimo • Funk</div><a href="https://www.mediafire.com/file/qab33h1xpzjgsvx/PACK_DJ_BNF_ORIGINAL_1.0_%F0%9F%92%B2.zip/file" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="The Last Chance - DJ Lucky 013"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">The Last Chance - DJ Lucky 013</div><div class="pack-card-source">Menor Kd7 • Funk</div><a href="https://drive.google.com/file/d/1b8yeLm7AxTONbCEvkWwyxpL2wDMrtpgo/view" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="PACK DJ AYZEN 1.0"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">PACK DJ AYZEN 1.0</div><div class="pack-card-source">Menor Kd7 • Funk</div><a href="https://www.mediafire.com/file/8pbpqyrxzui3pn1/PACK_DJ_AYZEN.zip/file" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="PACK DJ AYZEN 2.0"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">PACK DJ AYZEN 2.0</div><div class="pack-card-source">Menor Kd7 • Funk</div><a href="https://www.mediafire.com/file/5le1ey7jkljiu15/PACK_DJ_AYZEN_2.zip/file" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="PACK DJ AYZEN 3.0"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">PACK DJ AYZEN 3.0</div><div class="pack-card-source">Menor Kd7 • Funk</div><a href="https://www.mediafire.com/file/nrqbs6qui9i8boh/Pack_DJ_Ayzen_3.zip/file" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="PACK DJ RAULIPUES [ EXCLUSIVO ]"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">PACK DJ RAULIPUES [ EXCLUSIVO ]</div><div class="pack-card-source">@Sehoul • FUNK</div><a href="https://drive.google.com/file/d/11I_g6F-2_AcBfJbeSc3cYmvKNxDIVKWM/view" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="PACK DJ AYZEN 4"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">PACK DJ AYZEN 4</div><div class="pack-card-source">Dj Estti • Funk</div><a href="https://www.mediafire.com/file/i6i7hegyqv26is7/PACK+DJ+AYZEN+4.zip/file" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="gagaw da zs pt 1"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">gagaw da zs pt 1</div><div class="pack-card-source">jota' hz • Drum kit</div><a href="https://www.mediafire.com/file/p3ap7fcgtspzt8e/PACK+DJ+GAGAWA+DA+ZS+PT+1.zip/file" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="pack fire da zs"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">pack fire da zs</div><div class="pack-card-source">jota' hz • Drum kit</div><a href="https://www.mediafire.com/file/9f5ovk9djo5o0gt/PACK+DJ+FIRE+ZS+(dj+gagawa+pt+2)+2.zip/file" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="PACK EXCLUSIVO DJ TWOZ 1.0"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">PACK EXCLUSIVO DJ TWOZ 1.0</div><div class="pack-card-source">Menor Kd7 • Funk</div><a href="https://www.mediafire.com/file/mr8pe13qzs0mdfu/PACK_EXCLUSIVO_DJ_TWOZ_-_001.zip.zip/file" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="PACK DJ PALHAÇO DA DZ7"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">PACK DJ PALHAÇO DA DZ7</div><div class="pack-card-source">Menor Kd7 • Funk</div><a href="https://drive.google.com/file/d/1pI3g2eCLuCj0C7wigf7KcPUJs3OVTlQW/view" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="PACK DJ BNF ORIGINAL 6.0 [EXCLUSIVO]"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">PACK DJ BNF ORIGINAL 6.0</div><div class="pack-card-source">DJ BNF ORIGINAL • Pack Vazado</div><a href="https://www.mediafire.com/file/sid1val8zz8poyp/PACK+EXCLUSIVA.rar/file" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="PACK HAZARD 3"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">PACK HAZARD 3</div><div class="pack-card-source">Anônimo • DRUM KIT</div><a href="https://drive.google.com/file/d/1rgM5wQ3lfPxQQPmjgUMt0DwpgalYaW2b/view" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="PACK ESPECIAL DO DJ DRELXY"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">PACK ESPECIAL DO DJ DRELXY</div><div class="pack-card-source">??? • FUNK</div><a href="https://www.mediafire.com/file/dtlt22egkoarigb/❤️‍🩹+•+Pack+Especial+De+300+Subs+No+TikTok+•+((+DJ+Drelyx+Original+)).zip/file" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="PACK DO LUCA 07"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">PACK DO LUCA 07</div><div class="pack-card-source">DJ LUCA 97 • Cuiu</div><a href="https://www.mediafire.com/file/5i1ofgv74eivn2r/%2521%2540PACK_100_SUBS_DO_YT.zip/file" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="PACK F10 DA ZL 004"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">PACK F10 DA ZL 004</div><div class="pack-card-source">DJ JOAO 7 • Funk</div><a href="https://www.mediafire.com/file/1559ji096m9f3hm/PACK_DJ_F10_DA_ZL_004.zip/file" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="PACK DZN KURT ORG / JOAO 7 ANTIGO"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">PACK DZN KURT ORG / JOAO 7</div><div class="pack-card-source">DJ JOAO 7 • Funk</div><a href="https://www.mediafire.com/file/8w1n7a9v1sh2cup/Pack+Dzn+Kurt+ORG+🦠.zip/file" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="PACK DJ KLZ"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">PACK DJ KLZ</div><div class="pack-card-source">DJ PIKA DOS KELL • Funk Sigma boy</div><a href="https://www.mediafire.com/file/nslq4a0ug26gxvi/PACK_DE_DJ_KLZ_%2528Funk%2529%25283%2529.zip/file" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="PACK RIU DE JANEIRO DJ WD7"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">PACK RIU DE JANEIRO DJ WD7</div><div class="pack-card-source">DJ PIKA DOS KELL • Funk Sigma boy</div><a href="https://www.mediafire.com/file/eak956vawp9p7xs/pack_rj_do_dj_wd7%2528Copy%2529.zip/file" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="PACK VICK DA DZ7"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">PACK VICK DA DZ7</div><div class="pack-card-source">DJ JOAO 7 • Funk</div><a href="https://www.mediafire.com/file/rmqgok2zmjmcmjz/PACK_DJ_VICK_DA_DZ7_%25F0%259F%258F%2586%25E3%258A%2599%25EF%25B8%258F_%2528EM_COMEMORA%25C3%2587%25C3%2583O_DOS_1K%25E2%259D%25A4%25EF%25B8%258F%2529.zip/file" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="[[ PACK EXCLUSIVO DJ JOAO 7 👑🩸 ]]"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">[[ PACK EXCLUSIVO DJ JOAO 7 👑🩸 ]]</div><div class="pack-card-source">DJ JOAO 7 • Funk</div><a href="https://www.mediafire.com/file/plt5dh8w6nnaygi/%255B%255B_PACK_ATUALIZADO_EXCLUSIVO_DJ_JOAO_7_%25F0%259F%2591%2591%25F0%259F%258E%25B4_%255D%255D.zip/file" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="FUNK BIZARRO"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">FUNK BIZARRO</div><div class="pack-card-source">DJ MH • Funk</div><a href="https://www.mediafire.com/file/780u3oorgum2ozc/FUNK_BIZARRO.zip/file" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="Pack de acapelas DJ ANUBIS ZL"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">Pack de acapelas DJ ANUBIS ZL</div><div class="pack-card-source">DJ ANUBIS ZL • Acapella</div><a href="https://drive.google.com/file/d/1iW27RWTD6GeAtdGgGTqoFhBhDQxFn8fq/view" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="PACK DJ ST3 EXCLUSIVO 003"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">PACK DJ ST3 EXCLUSIVO 003</div><div class="pack-card-source">DJ FUNKS • I LEAKED TS!!</div><a href="https://www.mediafire.com/P4aJhXcznu7KqI8" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="PACK DJ MENO 011 EXCLU"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">PACK DJ MENO 011 EXCLU</div><div class="pack-card-source">Menor Kd7 • Pack</div><a href="https://drive.google.com/file/d/1d4r6mX1jGX2Qz5zR5TUebnLog3rFNb0l/view" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="PACK DJ MB DA DZ7 4.0"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">PACK DJ MB DA DZ7 4.0</div><div class="pack-card-source">Menor Kd7 • Samples</div><a href="https://drive.google.com/file/d/1_jgwk75w7Ox3Q6_u-s5CBmEX2DIkfgP3/view" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="PACK DJ FDAO 013 4.0"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">PACK DJ FDAO 013 4.0</div><div class="pack-card-source">Menor Kd7 • Pack</div><a href="https://drive.google.com/file/d/1ZAMbIbYgumXlA-mrOxVep7Fz-AhlXCgu/view" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="PACK FUNK MUITO BEM FEITO"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">PACK FUNK MUITO BEM FEITO</div><div class="pack-card-source">DJ PIKA DOS KELL • ZIP Exclusivo</div><a href="https://www.mediafire.com/file/5q20po7n86x0t3u/pack_do_dj_wd7_RJ_2.zip/file" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="Pack Zn Duzao"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">Pack Zn Duzao</div><div class="pack-card-source">jota' hz • Samples</div><a href="https://www.mediafire.com/file/uvadft75864sex5/PACK_ZN_DJ_DUZAO_DF_%231.zip/file" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="pack g4"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">pack g4</div><div class="pack-card-source">jota hz • Drum kit</div><a href="https://drive.google.com/file/d/1ng1m469TOmolnvdP0-GSUeRtZ2hPCt8a/view" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="Pack yzak 002"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">Pack yzak 002</div><div class="pack-card-source">jota hz • Drum kit</div><a href="https://drive.google.com/file/d/14WhMXBeC345klo2DzeL-oNgP5blvnRsY/view" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="pack random"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">pack random</div><div class="pack-card-source">jota' hz • Samples</div><a href="https://drive.google.com/file/d/16ZYjPJvqdxn6AU_8NiOdLZLIa4yWT9yg/view?usp=sharing" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="Rei do Brega 3"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">Rei do Brega 3</div><div class="pack-card-source">jota' hz • Drum kit</div><a href="https://www.mediafire.com/file/doav53g0gjq6m1p/REIDOBREGA+3.zip/file" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="#PACK UNICO DJ S7 ZS ! ⁷⁷⁷"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">#PACK UNICO DJ S7 ZS ! ⁷⁷⁷</div><div class="pack-card-source">DJ S7 ZS • Pack</div><a href="https://www.mediafire.com/file/ktju6qc8nrkvsxb/%2523PACK_UNICO_DJ_S7_ZS_%2521_%25E2%2581%25B7%25E2%2581%25B7%25E2%2581%25B7.zip/file" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="Mega Pack Diferenciado DJ PTS DA ZN part 2"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">Mega Pack DJ PTS DA ZN part 2</div><div class="pack-card-source">DJ PORCÃO • Pack</div><a href="https://drive.google.com/file/d/19xhBhEuwmrrVjXPxbjZymDYFHwu_9GS9/view" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="@Pack Dj Notfic7 E Dj Sebatian 011"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">@Pack Dj Notfic7 E Dj Sebatian 011</div><div class="pack-card-source">DJ NOTFIC7 • Pack</div><a href="https://www.mediafire.com/file/keymtxpdc6nzw5x/%2540Pack_Dj_Notfic7_E_Dj_Sebatian_011.zip/file" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="DJ DX ORIGINAL"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">DJ DX ORIGINAL</div><div class="pack-card-source">JP • Pack</div><a href="https://drive.google.com/file/d/1M0zhImx9cA_S_S_S/view" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="DJ EM7 ORIGINAL - SAMPLES BNF MIKU 2.0"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">DJ EM7 ORIGINAL - BNF MIKU 2.0</div><div class="pack-card-source">DJ Em7 Original • Samples</div><a href="https://www.mediafire.com/file/wu24p849wccnzj6/@djem7original+-+NOVA+BNF+MIKU+SAMPLES+2.0.zip/file" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="DJ RGLX PACK EXC 02"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">DJ RGLX PACK EXC 02</div><div class="pack-card-source">DJ RGLX • Pack</div><a href="https://drive.google.com/file/d/1W7_RP2pZTNedR-UXFY6WRNJBsXBIbKuC/view" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="ACAPELAS MC GW"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">ACAPELAS MC GW</div><div class="pack-card-source">Dj Dnl original • Pack</div><a href="https://drive.google.com/drive/folders/1_j5B2XYjeUvNLZ8J4VYGGI_vjbjQj_X" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="PACK DJ RED7 ORIGINAL 🎭"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">PACK DJ RED7 ORIGINAL 🎭</div><div class="pack-card-source">DJ RED7 ORIGINAL • Pack</div><a href="https://www.mediafire.com/file/9cgk3mw4l0j1jtw/🎭+PACK+DO+DJ+RED7+ORIGINAL+🎭.zip/file" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="PACK EXCLUSIVO DJ GUID 2K26"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">PACK EXCLUSIVO DJ GUID 2K26</div><div class="pack-card-source">DJ GUID • Pack</div><a href="https://drive.google.com/file/d/1mETYNQs6HnrVUXW_i2g0fp8MM4iaCY7s/view" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="pack dj ck7 da zs"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">pack dj ck7 da zs</div><div class="pack-card-source">Dj Josan Da Dz7 • Pack</div><a href="https://www.mediafire.com/file/xt2sreb7ka3eec4/PACK_EXCLUSIVO_DJ_CK7_DA_ZS_1.0.zip/file" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="PACK EXCLUSIVO DOS VIGARISTAS"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">PACK EXCLUSIVO DOS VIGARISTAS</div><div class="pack-card-source">DJ LUCXY ZN / G4M • Pack</div><a href="https://drive.google.com/file/d/1Zetpr8G0dAK3N_2atUHJ8L4JWF_RxFjK/view" target="_blank" class="btn-download-card">Baixar Pack</a></div>
+<div class="pack-card" data-name="PACK DJ RDT DA DZ7 💉"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">PACK DJ RDT DA DZ7 💉</div><div class="pack-card-source">NIK 013 • Kit Completo</div><a href="https://www.mediafire.com/file/1prhysn1jsz31pz/PACK_DJ_RDT_DA_DZ7.zip/file" target="_blank" class="btn-download-card">Baixar Pack</a></div>
 </div>
 </div>
 </div>
@@ -308,7 +366,6 @@ footer { text-align: center; padding: 60px 0 30px; color: var(--text-dim); font-
 <footer><p>&copy; 2026 PACKS EXCLUSIVOS • Criado por DJ JP 077</p></footer>
 
 <script>
-// ATENÇÃO: Link corrigido para o Render!
 const API = 'https://packsexclusivos.onrender.com/api';
 
 async function initSite() {
@@ -378,62 +435,86 @@ function initStatCounters() {
     observer.observe(boxes[0]);
 }
 
+// --- LOGICA DE AUTENTICAÇÃO ---
+
 async function handleRegister(e) {
     e.preventDefault();
+    const name = document.getElementById('reg-name').value;
+    const email = document.getElementById('reg-email').value;
+    const pass = document.getElementById('reg-pass').value;
+
     try {
         const res = await fetch(`${API}/register`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                name: document.getElementById('reg-name').value,
-                email: document.getElementById('reg-email').value,
-                pass: document.getElementById('reg-pass').value
-            })
+            body: JSON.stringify({ name, email, pass })
         });
-        if(res.ok) { notify("Conta criada! ✅"); showPage('login'); } else { notify("Erro ao criar conta!"); }
-    } catch(e) { notify("Erro de conexão!"); }
+        
+        if(res.ok) { 
+            notify("Conta criada! ✅"); 
+            showPage('login'); 
+        } else { 
+            const errData = await res.json();
+            notify(errData.error || "Erro ao criar conta!"); 
+        }
+    } catch (error) {
+        notify("Erro de conexão com o servidor!");
+    }
 }
 
 async function handleLogin(e) {
     e.preventDefault();
+    const email = document.getElementById('email').value;
+    const pass = document.getElementById('password').value;
+
     try {
         const res = await fetch(`${API}/login`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                email: document.getElementById('email').value,
-                pass: document.getElementById('password').value
-            })
+            body: JSON.stringify({ email, pass })
         });
+
         if(res.ok) {
             const data = await res.json();
             localStorage.setItem('currentUserName', data.name);
             localStorage.setItem('isAdminLogged', data.role === 'admin' ? 'true' : 'false');
             localStorage.setItem('isUserLogged', 'true');
+            
+            document.getElementById('login-error').style.display = 'none';
             notify(`Olá ${data.name}! ✅`);
-            updateAuthUI(); updateAdminStatus(); showPage('home');
+            updateAuthUI(); 
+            updateAdminStatus(); 
+            showPage('home');
         } else {
             document.getElementById('login-error').style.display = 'block';
             notify("Login incorreto! ❌");
         }
-    } catch(e) { notify("Erro de conexão!"); }
+    } catch (error) {
+        notify("Erro de conexão com o servidor!");
+    }
 }
 
 function logout() {
     localStorage.clear();
-    updateAuthUI(); updateAdminStatus();
+    updateAuthUI(); 
+    updateAdminStatus();
     notify("Saindo...");
     showPage('home');
 }
 
-// FUNÇÃO CORRIGIDA PARA ALINHAMENTO
+// --- LOGICA DE PACKS E SOLICITAÇÕES ---
+
 async function loadDynamicPacks() {
     try {
+        // 1. O trabalhador busca os packs no servidor
         const res = await fetch(`${API}/packs`);
         const packs = await res.json();
-        const packsGrid = document.getElementById('packsList');
+        
+        // 2. Ele olha para a PRATELEIRA (packsList)
+        const packsGrid = document.getElementById('packsList'); 
         if(!packsGrid) return;
 
+        // 3. Ele prepara os packs para serem colocados
         const dynamicHTML = packs.map(p => `
             <div class="pack-card" data-name="${p.name}">
                 <div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div>
@@ -443,8 +524,22 @@ async function loadDynamicPacks() {
             </div>
         `).join('');
 
+        // 4. Ele coloca os packs DIRETO na prateleira, um por um, no final da lista
         packsGrid.insertAdjacentHTML('beforeend', dynamicHTML);
-    } catch(e) { console.error("Erro ao carregar packs"); }
+        
+    } catch(e) { 
+        console.error("Erro ao carregar packs:", e); 
+    }
+}
+
+
+        // O 'beforeend' diz ao navegador: 
+        // "Coloque esses packs novos no final da grade, logo após os packs que já estão lá"
+        packsGrid.insertAdjacentHTML('beforeend', dynamicHTML);
+        
+    } catch(e) { 
+        console.error("Erro ao carregar packs:", e); 
+    }
 }
 
 async function uploadPack() {
@@ -565,15 +660,26 @@ function closeRequestModal() {
 async function submitPackRequest() {
     const name = document.getElementById('req-name').value.trim();
     const link = document.getElementById('req-link').value.trim();
+    
     if(!name || !link) return notify("Preencha o nome e o link!");
 
-    await fetch(`${API}/requests`, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ name, link })
-    });
-    closeRequestModal();
-    notify("Solicitação enviada! Aguarde a aprovação ✅");
+    try {
+        const res = await fetch(`${API}/requests`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ name, link })
+        });
+
+        if(res.ok) {
+            closeRequestModal();
+            notify("Solicitação enviada! Aguarde a aprovação ✅");
+        } else {
+            const errData = await res.json();
+            notify(errData.error || "Erro ao enviar!");
+        }
+    } catch (error) {
+        notify("Erro de conexão com o servidor!");
+    }
 }
 
 async function renderAdminRequests() {
