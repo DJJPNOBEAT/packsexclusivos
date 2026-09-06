@@ -1,0 +1,28 @@
+{
+  "users": [
+    {
+      "name": "joao pedro rocha",
+      "email": "djjjpnobeat07@gmail.com",
+      "pass": "rodolfoo12@@"
+    }
+  ],
+  "packs": [],
+  "comments": [
+    {
+      "user": "Administrador",
+      "text": "Olá eu sou o admin e estou fazendo um teste",
+      "date": "06/09/2026, 17:58:35"
+    },
+    {
+      "user": "Administrador",
+      "text": "Olá",
+      "date": "06/09/2026, 18:26:32"
+    },
+    {
+      "user": "joao pedro rocha",
+      "text": "Teste",
+      "date": "06/09/2026, 18:27:54"
+    }
+  ],
+  "requests": []
+}
