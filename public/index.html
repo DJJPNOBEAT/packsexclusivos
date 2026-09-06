@@ -223,7 +223,7 @@ footer { text-align: center; padding: 60px 0 30px; color: var(--text-dim); font-
 <button class="btn-launch" onclick="openRequestModal()">📩 Solicitar Pack</button>
 </div>
 <div class="packs-grid" id="packsList">
-<!-- SEUS PACKS ORIGINAIS MANTIDOS -->
+<!-- PACKS ESTÁTICOS MANTIDOS -->
 <div class="pack-card" data-name="Mini pack DJ URUS"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">Mini pack DJ URUS</div><div class="pack-card-source">JVXT • Drum Kit</div><a href="https://www.mediafire.com/file/nlty4j2k8rhfnev/Mini_pack_DJ_URUS.zip/file" target="_blank" class="btn-download-card">Baixar Pack</a></div>
 <div class="pack-card" data-name="PACK EXCLUSIVA DJ AC15"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">PACK EXCLUSIVA DJ AC15</div><div class="pack-card-source">JVXT • Funk / MTG</div><a href="https://www.mediafire.com/file/sid1val8zz8poyp/PACK+EXCLUSIVA+DJ+AC15+011.rar/file" target="_blank" class="btn-download-card">Baixar Pack</a></div>
 <div class="pack-card" data-name="PACK DJ SOUZA (LITE)"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">PACK DJ SOUZA (LITE)</div><div class="pack-card-source">JVXT • Drum Kit</div><a href="https://www.mediafire.com/file/6l98i19sq090tc4/PACK_DJ_SOUZA_011_%2528_LITE_%2529.zip/file" target="_blank" class="btn-download-card">Baixar Pack</a></div>
@@ -286,7 +286,7 @@ footer { text-align: center; padding: 60px 0 30px; color: var(--text-dim); font-
 <h2>Bem-vindo</h2>
 <div id="login-error" style="color:var(--admin-color); display:none; margin-bottom:10px;">Erro no login! ❌</div>
 <form class="auth-form" onsubmit="handleLogin(event)">
-<div class="input-group"><label>E-mail</label><input type="email" id="email" required></div>
+<div class="input-group"><label>E-mail / Nome</label><input type="text" id="email" required></div>
 <div class="input-group"><label>Senha</label><input type="password" id="password" required></div>
 <button type="submit" class="btn-auth-submit">Entrar agora</button>
 </form>
@@ -436,65 +436,90 @@ function initStatCounters() {
     observer.observe(boxes[0]);
 }
 
-
+// --- LOGICA DE AUTENTICAÇÃO ---
 
 async function handleRegister(e) {
     e.preventDefault();
-    const res = await fetch(`${API}/register`, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-            name: document.getElementById('reg-name').value,
-            email: document.getElementById('reg-email').value,
-            pass: document.getElementById('reg-pass').value
-        })
-    });
-    if(res.ok) { notify("Conta criada! ✅"); showPage('login'); } else { notify("Erro ao criar conta!"); }
+    const name = document.getElementById('reg-name').value;
+    const email = document.getElementById('reg-email').value;
+    const pass = document.getElementById('reg-pass').value;
+
+    try {
+        const res = await fetch(`${API}/register`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ name, email, pass })
+        });
+        
+        if(res.ok) { 
+            notify("Conta criada! ✅"); 
+            showPage('login'); 
+        } else { 
+            const errData = await res.json();
+            notify(errData.error || "Erro ao criar conta!"); 
+        }
+    } catch (error) {
+        notify("Erro de conexão com o servidor!");
+    }
 }
 
 async function handleLogin(e) {
     e.preventDefault();
-    const res = await fetch(`${API}/login`, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-            email: document.getElementById('email').value,
-            pass: document.getElementById('password').value
-        })
-    });
-    if(res.ok) {
-        const data = await res.json();
-        localStorage.setItem('currentUserName', data.name);
-        localStorage.setItem('isAdminLogged', data.role === 'admin' ? 'true' : 'false');
-        localStorage.setItem('isUserLogged', 'true');
-        notify(`Olá ${data.name}! ✅`);
-        updateAuthUI(); updateAdminStatus(); showPage('home');
-    } else {
-        document.getElementById('login-error').style.display = 'block';
-        notify("Login incorreto! ❌");
+    const email = document.getElementById('email').value;
+    const pass = document.getElementById('password').value;
+
+    try {
+        const res = await fetch(`${API}/login`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ email, pass })
+        });
+
+        if(res.ok) {
+            const data = await res.json();
+            localStorage.setItem('currentUserName', data.name);
+            localStorage.setItem('isAdminLogged', data.role === 'admin' ? 'true' : 'false');
+            localStorage.setItem('isUserLogged', 'true');
+            
+            document.getElementById('login-error').style.display = 'none';
+            notify(`Olá ${data.name}! ✅`);
+            updateAuthUI(); 
+            updateAdminStatus(); 
+            showPage('home');
+        } else {
+            document.getElementById('login-error').style.display = 'block';
+            notify("Login incorreto! ❌");
+        }
+    } catch (error) {
+        notify("Erro de conexão com o servidor!");
     }
 }
 
 function logout() {
     localStorage.clear();
-    updateAuthUI(); updateAdminStatus();
+    updateAuthUI(); 
+    updateAdminStatus();
     notify("Saindo...");
     showPage('home');
 }
 
+// --- LOGICA DE PACKS E SOLICITAÇÕES ---
+
 async function loadDynamicPacks() {
-    const res = await fetch(`${API}/packs`);
-    const packs = await res.json();
-    const dynamicList = document.getElementById('dynamic-packs-list');
-    if(!dynamicList) return;
-    dynamicList.innerHTML = packs.map(p => `
-        <div class="pack-card" data-name="${p.name}">
-            <div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div>
-            <div class="pack-card-name">${p.name}</div>
-            <div class="pack-card-source">${p.uploader} • ${p.category}</div>
-            <a href="${p.link}" target="_blank" class="btn-download-card">Baixar Pack</a>
-        </div>
-    `).join('');
+    try {
+        const res = await fetch(`${API}/packs`);
+        const packs = await res.json();
+        const dynamicList = document.getElementById('dynamic-packs-list');
+        if(!dynamicList) return;
+        dynamicList.innerHTML = packs.map(p => `
+            <div class="pack-card" data-name="${p.name}">
+                <div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div>
+                <div class="pack-card-name">${p.name}</div>
+                <div class="pack-card-source">${p.uploader} • ${p.category}</div>
+                <a href="${p.link}" target="_blank" class="btn-download-card">Baixar Pack</a>
+            </div>
+        `).join('');
+    } catch(e) { console.error("Erro ao carregar packs"); }
 }
 
 async function uploadPack() {
@@ -615,15 +640,26 @@ function closeRequestModal() {
 async function submitPackRequest() {
     const name = document.getElementById('req-name').value.trim();
     const link = document.getElementById('req-link').value.trim();
+    
     if(!name || !link) return notify("Preencha o nome e o link!");
 
-    await fetch(`${API}/requests`, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ name, link })
-    });
-    closeRequestModal();
-    notify("Solicitação enviada! Aguarde a aprovação ✅");
+    try {
+        const res = await fetch(`${API}/requests`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ name, link })
+        });
+
+        if(res.ok) {
+            closeRequestModal();
+            notify("Solicitação enviada! Aguarde a aprovação ✅");
+        } else {
+            const errData = await res.json();
+            notify(errData.error || "Erro ao enviar!");
+        }
+    } catch (error) {
+        notify("Erro de conexão com o servidor!");
+    }
 }
 
 async function renderAdminRequests() {
@@ -760,7 +796,6 @@ function filterPacks() {
         c.style.display = (name.includes(val) || source.includes(val)) ? '' : 'none';
     });
 }
-
 </script>
 </body>
 </html>
