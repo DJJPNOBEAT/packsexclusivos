@@ -137,6 +137,12 @@ footer { text-align: center; padding: 60px 0 30px; color: var(--text-dim); font-
 .sup-float { background: #25D366; }
 .theme-float { background: var(--primary); }
 .float-btn svg { width: 22px; height: 22px; fill: white; }
+
+/* NOVOS ESTILOS PARA ADMIN E NOTIFICAÇÃO */
+.btn-del-comment { background: rgba(239, 68, 68, 0.2); color: #ef4444; border: none; border-radius: 5px; cursor: pointer; font-size: 12px; padding: 2px 8px; margin-left: 10px; transition: var(--transition); }
+.btn-del-comment:hover { background: #ef4444; color: white; }
+.nav-badge { background: var(--admin-color); color: white; font-size: 10px; padding: 2px 6px; border-radius: 10px; margin-left: 5px; vertical-align: middle; }
+
 @media (max-width: 768px) { .nav-links { display: none; } nav { padding: 15px 5%; } .hero h1 { font-size: 40px; } .search-area { flex-direction: column; } .btn-launch { width: 100%; } }
 </style>
 </head>
@@ -154,7 +160,7 @@ footer { text-align: center; padding: 60px 0 30px; color: var(--text-dim); font-
 <ul class="nav-links" id="main-nav">
 <li><a onclick="showPage('home')">Início</a></li>
 <li><a onclick="showPage('packs')">Ver Packs</a></li>
-<li><a onclick="showPage('community')">Comunidade</a></li>
+<li><a onclick="showPage('community')">Comunidade<span id="comm-badge" class="nav-badge" style="display:none;">!</span></a></li>
 </ul>
 </div>
 <a id="auth-nav-btn" class="login-btn">Fazer Login</a>
@@ -213,7 +219,7 @@ footer { text-align: center; padding: 60px 0 30px; color: var(--text-dim); font-
 <button class="btn-launch" onclick="openRequestModal()">📩 Solicitar Pack</button>
 </div>
 <div class="packs-grid" id="packsList">
-<!-- TODOS OS SEUS PACKS ESTÁTICOS ESTÃO AQUI DE VOLTA -->
+<!-- PACKS ORIGINAIS MANTIDOS -->
 <div class="pack-card" data-name="Mini pack DJ URUS"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">Mini pack DJ URUS</div><div class="pack-card-source">JVXT • Drum Kit</div><a href="https://www.mediafire.com/file/nlty4j2k8rhfnev/Mini_pack_DJ_URUS.zip/file" target="_blank" class="btn-download-card">Baixar Pack</a></div>
 <div class="pack-card" data-name="PACK EXCLUSIVA DJ AC15"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">PACK EXCLUSIVA DJ AC15</div><div class="pack-card-source">JVXT • Funk / MTG</div><a href="https://www.mediafire.com/file/sid1val8zz8poyp/PACK+EXCLUSIVA+DJ+AC15+011.rar/file" target="_blank" class="btn-download-card">Baixar Pack</a></div>
 <div class="pack-card" data-name="PACK DJ SOUZA (LITE)"><div class="pack-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/></svg></div><div class="pack-card-name">PACK DJ SOUZA (LITE)</div><div class="pack-card-source">JVXT • Drum Kit</div><a href="https://www.mediafire.com/file/6l98i19sq090tc4/PACK_DJ_SOUZA_011_%2528_LITE_%2529.zip/file" target="_blank" class="btn-download-card">Baixar Pack</a></div>
@@ -369,6 +375,7 @@ async function initSite() {
     initStatCounters();
     initRevealObserver();
     renderThemeSwatches();
+    checkCommunityNotifications();
 }
 
 function initRevealObserver() {
@@ -474,7 +481,6 @@ function logout() {
     showPage('home');
 }
 
-// FUNÇÃO DE CARREGAMENTO CORRIGIDA (SÓ ADICIONA, NÃO SUBSTITUI)
 async function loadDynamicPacks() {
     try {
         const res = await fetch(`${API}/packs`);
@@ -546,11 +552,26 @@ async function postComment() {
 async function loadComments() {
     const res = await fetch(`${API}/comments`);
     const comments = await res.json();
+    const isAdmin = localStorage.getItem('isAdminLogged') === 'true';
     const list = document.getElementById('comments-list');
     if(!list) return;
     list.innerHTML = comments.map(c => `
-        <div class="user-comment"><strong>${c.user}</strong> <span style="font-size:10px; float:right;">${c.date}</span><p>${c.text}</p></div>
+        <div class="user-comment">
+            <strong>${c.user}</strong> 
+            <span style="font-size:10px; float:right;">
+                ${c.date} 
+                ${isAdmin ? `<button class="btn-del-comment" onclick="deleteComment(${c.id})">🗑️</button>` : ''}
+            </span>
+            <p>${c.text}</p>
+        </div>
     `).reverse().join('');
+}
+
+async function deleteComment(id) {
+    if(!confirm("Deseja remover este comentário?")) return;
+    await fetch(`${API}/comments/${id}`, { method: 'DELETE' });
+    notify("Comentário removido! 🗑️");
+    loadComments();
 }
 
 function updateAuthUI() {
@@ -592,6 +613,18 @@ async function refreshRequestBadge() {
     }
 }
 
+async function checkCommunityNotifications() {
+    const isAdmin = localStorage.getItem('isAdminLogged') === 'true';
+    if(!isAdmin) return;
+    try {
+        const res = await fetch(`${API}/comments`);
+        const comments = await res.json();
+        const badge = document.getElementById('comm-badge');
+        if(comments.length > 0) badge.style.display = 'inline-block';
+        else badge.style.display = 'none';
+    } catch(e) { console.error("Erro notificação"); }
+}
+
 function openRequestsPanel() {
     showPage('admin-panel');
     setTimeout(() => {
@@ -601,6 +634,12 @@ function openRequestsPanel() {
 }
 
 function openRequestModal() {
+    const isLogged = localStorage.getItem('isUserLogged') === 'true';
+    if (!isLogged) {
+        notify("🔒 Você precisa estar logado para solicitar!");
+        showPage('login');
+        return;
+    }
     document.getElementById('req-name').value = '';
     document.getElementById('req-link').value = '';
     document.getElementById('request-modal-overlay').classList.add('show');
