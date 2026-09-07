@@ -43,13 +43,18 @@ app.post('/api/register', (req, res) => {
 app.post('/api/login', (req, res) => {
     const { email, pass } = req.body;
     const data = readData();
+    
+    // LISTA DE ADMINISTRADORES ATUALIZADA
     const ADMINS = [
         { email: "teste", pass: "1234" }, 
         { email: "djjp077@gmail.com", pass: "rodolfoo12@@" }, 
-        { email: "lipedazn1@gmail.com", pass: "1234" }
+        { email: "lipedazn1@gmail.com", pass: "1234" },
+        { email: "kellymaster@gmail.com", pass: "kelly123" } // Conta da Kelly adicionada aqui ✅
     ];
+    
     const isAdmin = ADMINS.find(a => a.email === email && a.pass === pass);
     const isUser = data.users.find(u => u.email === email && u.pass === pass);
+    
     if (isAdmin) return res.json({ role: 'admin', name: 'Administrador', email });
     if (isUser) return res.json({ role: 'user', name: isUser.name, email });
     res.status(401).json({ error: "Dados incorretos!" });
@@ -101,7 +106,6 @@ app.post('/api/comments', (req, res) => {
     res.json(comment);
 });
 
-// NOVA ROTA: Deletar Comentário (Exclusivo para Admin)
 app.delete('/api/comments/:id', (req, res) => {
     const data = readData();
     data.comments = data.comments.filter(c => c.id != req.params.id);
